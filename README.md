@@ -8,6 +8,8 @@ UI Tweaks
 
 ## Popup
 - Hide Difficulty
+- Stop Blinking
+- Better Tables
 
 ## Made For 
 - https://github.com/Aldhanekaa/MySATPrep/
