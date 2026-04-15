@@ -1,3 +1,16 @@
+// ---------- OPEN WEBSITE/REPO ----------
+
+// Add links to popup.html
+document.querySelectorAll("[data-url]").forEach(el => {
+  el.addEventListener("click", () => {
+    chrome.tabs.create({
+      url: el.dataset.url
+    });
+  });
+});
+
+// ---------- UI TOGGLES ----------
+
 const toggles = [
   { key: "hideDifficulty", el: "toggleDifficulty", default: true },
   { key: "betterTables", el: "toggleTables", default: true },
