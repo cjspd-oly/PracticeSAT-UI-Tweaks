@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "MySATPrep UI Tweaks",
+  "version": "1.0",
+  "description": "Hide difficulty badges and customize UI",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://practicesat.vercel.app/*",
+    "https://www.mysatprep.fun/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://practicesat.vercel.app/*",
+        "https://www.mysatprep.fun/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "UI Tweaks"
+  },
+  "icons": {
+    "16": "icons/icon.png",
+    "32": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  }
+}
