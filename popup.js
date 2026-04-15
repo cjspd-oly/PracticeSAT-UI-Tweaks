@@ -1,31 +1,31 @@
-const toggleDifficulty = document.getElementById("toggleDifficulty");
-const toggleTables = document.getElementById("toggleTables");
+const toggles = [
+  { key: "hideDifficulty", el: "toggleDifficulty", default: true },
+  { key: "betterTables", el: "toggleTables", default: true },
+  { key: "stopBlink", el: "toggleBlink", default: true }
+];
 
-// load state (persist defaults)
+// init
 chrome.storage.local.get(
-  ["hideDifficulty", "betterTables"],
+  toggles.map(t => t.key),
   (res) => {
-    if (res.hideDifficulty === undefined) {
-      chrome.storage.local.set({ hideDifficulty: true });
-      toggleDifficulty.checked = true;
-    } else {
-      toggleDifficulty.checked = res.hideDifficulty;
-    }
+    toggles.forEach(t => {
+      const el = document.getElementById(t.el);
 
-    if (res.betterTables === undefined) {
-      chrome.storage.local.set({ betterTables: true });
-      toggleTables.checked = true;
-    } else {
-      toggleTables.checked = res.betterTables;
-    }
+      if (!el) return;
+
+      if (res[t.key] === undefined) {
+        chrome.storage.local.set({ [t.key]: t.default });
+        el.checked = t.default;
+      } else {
+        el.checked = res[t.key];
+      }
+
+      // bind listener
+      el.addEventListener("change", () => {
+        chrome.storage.local.set({
+          [t.key]: el.checked
+        });
+      });
+    });
   }
 );
-
-// update state
-toggleDifficulty.addEventListener("change", () => {
-  chrome.storage.local.set({ hideDifficulty: toggleDifficulty.checked });
-});
-
-toggleTables.addEventListener("change", () => {
-  chrome.storage.local.set({ betterTables: toggleTables.checked });
-});
